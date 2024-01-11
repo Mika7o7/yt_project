@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title%} {{title}} {% endblock %}
+
+{% block table %}
+<table class="table mb-4">
+    <thead>
+        <tr>
+          <th scope="col">No.</th>
+          <th scope="col">Outside Number</th>
+          <th scope="col">Status</th>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Type</th>
+          <th scope="col">Gem</th>
+          <th scope="col">Metal</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders_list %}
+        <tr>
+          <th scope="row">{{order.id }}</th>
+          <td>{{ order.outside_number }}</td>
+          <td>
+            {% if order.curent_section != 'done' %}
+            <div class="alert alert-secondary" role="alert">In progress</div>
+            {% else %}
+            <div class="alert alert-success" role="alert">Completed</div>
+            {% endif %}
+          </td>
+          <td>{{ order.title }}</td>
+          <td>{{ order.description }}</td>
+          <td>{{ order.type }}</td>
+          <td>{{ order.gem }}</td>
+          <td>{{ order.metal }}</td>
+          <td>
+            <a class="btn btn-primary" href="/order/next/{{ order.id }}">Next</a>
+            <a class="btn btn-secondary" href="/order/back/{{ order.id }}">Back</a>
+            <div style="display: flex; margin-top: 10px;">
+            <a class="btn btn-success" href="/order/update/{{ order.id }}">Update</a>
+            <a class="btn btn-danger ms-1" href="/order/delete/{{ order.id }}">Delete</a>
+          </div>
+          </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
